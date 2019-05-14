@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config id="SharpGen" xmlns="urn:SharpGen.Config">
+    <assembly>SharpGen</assembly>
+    <namespace>SharpGen</namespace>
+    <depends>SharpGen.Runtime</depends>
+
+    <sdk name="StdLib" />
+    <sdk name="WindowsSdk" version="10.0.17134.0" />
+
+    <include-dir>$(THIS_CONFIG_PATH)/../Native</include-dir>
+    <include-dir>$(THIS_CONFIG_PATH)/../build/Native</include-dir>
+
+    <include file="Native.h" attach="true" namespace="SharpGen" />
+
+    <mapping>
+        <remove function="TestString" />
+    </mapping>
+</config>
