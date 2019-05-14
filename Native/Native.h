@@ -12,15 +12,9 @@ class Base {
     NATIVE_EXPORT virtual void Test() = 0;
 };
 
-class Base2 {
-public:
-    virtual void Test2() = 0;
-};
-
-class Derived : public Base, public Base2 {
+class Derived : public Base {
     public:
     NATIVE_EXPORT void Test() override;
-    NATIVE_EXPORT void Test2() override;
 };
 
 struct OperatorOverload
