@@ -21,3 +21,5 @@ install(FILES
  Native.h
  ${PROJECT_BINARY_DIR}/native_export.h DESTINATION inc
 )
+
+install(TARGETS Native)

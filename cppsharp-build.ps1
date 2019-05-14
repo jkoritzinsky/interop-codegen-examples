@@ -1,3 +1,5 @@
+# Build CppSharp
+
 $env:VS_VERSION='vs2017'
 $env:BUILD_PLATFORM='x86'
 $env:DEPS_PATH="$PWD" + "/CppSharp/deps"
@@ -11,6 +13,32 @@ Start-Developer-Prompt
 
 msbuild $env:BUILD_PATH\CppSharp.sln /p:Configuration=Release /p:Platform=x86
 
-msbuild .\CppSharpGenerator\CppSharpGenerator.csproj
+# Build generator project
 
-.\CppSharpGenerator\bin\Debug\CppSharpGenerator.exe
+dotnet build .\CppSharpGenerator\CppSharpGenerator.csproj
+
+#Run generator
+
+$generatorLocation = (Resolve-Path .\CppSharpGenerator\bin\Debug\CppSharpGenerator.exe)
+
+mkdir bin -ErrorAction SilentlyContinue
+
+pushd bin
+try {
+    mkdir cppsharp
+    cd cppsharp
+    Start-Process $generatorLocation -Wait
+    popd
+}
+finally {
+    popd
+}
+
+# Build library with generated C#.
+
+dotnet build .\CppSharpWrapperLibrary\CppSharpWrapperLibrary.csproj
+
+# Build native libraries from CppSharp generated C++
+
+cmake -S .\CppSharpWrapperLibraryNative -B cppsharp-build -DCMAKE_INSTALL_PREFIX=bin/cppsharp
+cmake --build cppsharp-build --target install
