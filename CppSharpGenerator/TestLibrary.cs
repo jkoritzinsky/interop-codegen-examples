@@ -25,9 +25,9 @@ namespace CppSharpGenerator
             options.GeneratorKind = CppSharp.Generators.GeneratorKind.CSharp;
 
             var module = options.AddModule("Native");
-            module.IncludeDirs.Add(@"C:\Users\jekoritz\source\experiments\CppSharp\bin\inc");
+            module.IncludeDirs.Add(@"C:\Users\jekoritz\source\experiments\interop-tooling-examples\bin\inc");
             module.Headers.Add("Native.h");
-            module.LibraryDirs.Add(@"C:\Users\jekoritz\source\experiments\CppSharp\bin\bin");
+            module.LibraryDirs.Add(@"C:\Users\jekoritz\source\experiments\interop-tooling-examples\bin\bin");
             module.Libraries.Add("Native.dll");
         }
 
